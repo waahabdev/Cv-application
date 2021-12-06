@@ -1,23 +1,21 @@
-import React, { useState} from "react";
-import axios from 'axios'
-import { useNavigate } from 'react-router';
-
+import React, { useState } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router";
 
 const Login = () => {
   let navigate = useNavigate();
- 
 
   const [email, setemail] = useState({
-    email: ""
+    email: "",
   });
   const [password, setpassword] = useState({
-    password: ""
+    password: "",
   });
-  
-function isAuthenticated(){
- return sessionStorage.getItem('token') 
- }
-  
+
+  function isAuthenticated() {
+    return localStorage.getItem("token");
+  }
+
   const handleChange = (e) => {
     setemail({
       ...email,
@@ -29,36 +27,33 @@ function isAuthenticated(){
     });
   };
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-  const handleSubmit = async (e) =>{
-    e.preventDefault()
-    
-    axios.post('http://localhost:5000/users/login', email, password)
-    .then(res => {
-      localStorage.setItem('token', res.data.token)
+    axios
+      .post("http://localhost:5000/users/login", email, password)
+      .then((res) => {
+        localStorage.setItem("token", res.data.token);
+        localStorage.setItem("firstname", res.data.user.firstname);
+        localStorage.setItem("lastname", res.data.user.lastname);
+        localStorage.setItem("user", res.data.user);
 
-    
-     if(isAuthenticated){ 
-      navigate('/dashboard')
-     }
-    
-    })
-    .catch(err => {
-      console.log(err)
-    
-    })
-
-
-  }
-  
+        if (isAuthenticated) {
+          navigate("/dashboard");
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   return (
     <div className="login align-items-center d-flex justify-content-center container">
       <div className="card">
         <div className="m-5 ">
           <div className="d-flex justify-content-center mb-3">
-        <i className="login-person far fa-user"></i>
-        </div>
+            <i className="login-person far fa-user"></i>
+          </div>
           <form onSubmit={handleSubmit}>
             <div className="mb-3">
               <label htmlFor="exampleInputEmail1" className="form-label">

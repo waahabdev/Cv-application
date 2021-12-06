@@ -7,3 +7,4 @@ const ProtectedRoutes = () => {
     return ('token' in localStorage) ? <Outlet /> : <Navigate to="/login" />;
 }
 export default ProtectedRoutes
+
