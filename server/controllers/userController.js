@@ -8,6 +8,7 @@ import { user } from "../models/userSchema.js";
 export const getUsers = async (req, res) => {
   try {
     const allUsers = await user.find();
+    // Make sure to remove passwords from the user even if they're hashed
     res.status(200).json(allUsers); //skickar tillbaka alla users
   } catch (error) {
     res.status(500).json(error);

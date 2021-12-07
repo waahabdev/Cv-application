@@ -5,9 +5,13 @@ import { useNavigate } from "react-router";
 const Login = () => {
   let navigate = useNavigate();
 
+  // Instead of making an object and then setting a string 
+  // you could simply make a string like below
+  // const [email, setemail] = useState("");
   const [email, setemail] = useState({
     email: "",
-  });
+  })
+  // Same goes here
   const [password, setpassword] = useState({
     password: "",
   });
@@ -29,12 +33,12 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    // Instead of making axios request direct from the component we should create a service called authService and deal all of these things there.
     axios
       .post("http://localhost:5000/users/login", email, password)
       .then((res) => {
         localStorage.setItem("token", res.data.token);
-        localStorage.setItem("firstname", res.data.user.firstname);
+        localStorage.setItem("firstname", res.data.user.firstname); //Why do we need to save firstname lastname separately? Can't we get it from user data we're setting in the localStorage
         localStorage.setItem("lastname", res.data.user.lastname);
         localStorage.setItem("user", res.data.user);
 

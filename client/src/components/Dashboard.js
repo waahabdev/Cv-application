@@ -3,7 +3,7 @@ import { useNavigate } from "react-router";
 
 const Dashboard = () => {
   let history = useNavigate();
-  const removeToken = () => {
+  const removeToken = () => { //Instead of "removeToken" the function name should be relevant to it action like "logout" or "onLogout"
     localStorage.clear();
     history("/");
   };
