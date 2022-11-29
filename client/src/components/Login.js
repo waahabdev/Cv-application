@@ -35,7 +35,7 @@ const Login = () => {
     e.preventDefault();
     // Instead of making axios request direct from the component we should create a service called authService and deal all of these things there.
     axios
-      .post("http://localhost:5000/users/login", email, password)
+      .post(process.env.REACT_APP_URL + "users/login", email, password)
       .then((res) => {
         localStorage.setItem("token", res.data.token);
         localStorage.setItem("firstname", res.data.user.firstname); //Why do we need to save firstname lastname separately? Can't we get it from user data we're setting in the localStorage
